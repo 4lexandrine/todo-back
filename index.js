@@ -56,7 +56,7 @@ app.post("/update", async (req, res) => {
     }
 });
 
-app.post("/delete", async (req, res) => {
+app.post("/remove", async (req, res) => {
     try {
         const idRemoveTask = await ToDo.findById({ _id: req.fields.id });
         await idRemoveTask.remove();
