@@ -30,7 +30,7 @@ app.post("/create", async (req, res) => {
         await newToDo.save();
         res.json({ message: "new task created", newToDo });
     } catch (error) {
-        res.status(200).send({ error: error.status });
+        res.status(400).send({ error: error.status });
     }
 });
 
@@ -46,7 +46,7 @@ app.get("/read", async (req, res) => {
 app.post("/update", async (req, res) => {
     try {
         const idUpdateTask = await ToDo.findById({ _id: req.fields.id });
-        idUpdateTask.title = req.fields.title;
+        idUpdateTask.done = req.fields.done;
 
         await idUpdateTask.save();
 
@@ -68,7 +68,7 @@ app.post("/delete", async (req, res) => {
 
 app.post("/search", async (req, res) => {
     try {
-        const todos = await ToDo.find({ title: { $regex: req.fields.title } });
+        const todos = await ToDo.find({ title: { $regex: req.fields.title, $options: 'i' } });
 
         if (todos) {
             res.json({ todos });
