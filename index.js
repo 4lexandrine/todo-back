@@ -8,7 +8,7 @@ app.use(cors());
 app.use(expressMiddleware());
 
 mongoose.connect(
-    "mongodb://localhost/todolist",
+    process.env.MONGODB_URI,
     {
         useNewUrlParser: true,
         useUnifiedTopology: true
@@ -81,10 +81,18 @@ app.post("/search", async (req, res) => {
     }
 });
 
+app.get("/", (req, res) => {
+    try {
+        res.send("React Todolist !");
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+});
+
 app.all("*", (req, res) => {
     res.status(404).send({ message: "page introuvable" });
 });
 
-app.listen(3100, () => {
+app.listen(PORT || 3100, () => {
     console.log("Server started");
 });
