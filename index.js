@@ -6,7 +6,7 @@ const app = express();
 require('dotenv').config();
 
 app.use(cors({
-    origin: 'https://amazing-neumann-f87590.netlify.app/',
+    origin: process.env.ALLOWED_APPS,
 }));
 app.use(expressMiddleware());
 
