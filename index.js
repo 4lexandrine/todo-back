@@ -5,7 +5,7 @@ const cors = require("cors");
 const app = express();
 require('dotenv').config();
 
-
+console.log(process.env.ALLOWED_APPS);
 app.use(cors({
     origin: process.env.ALLOWED_APPS,
 }));
